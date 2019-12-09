@@ -2,10 +2,177 @@
 <html>
 <body>
 
-<canvas id="myCanvas" width="1100" height="860" style="border:1px solid #d3d3d3;">
+<canvas id="myCanvas" width="1250" height="860" style="border:1px solid #d3d3d3;">
 Your browser does not support the HTML5 canvas tag.</canvas>
 
 <script>
+
+var shapes = {};
+
+shapes.standingDiamonds = function (x, y) {
+  //top
+  modX = x;
+  modY = y;
+  diamond(modX, modY);
+
+  //top left
+  modX = x - 50/4*3;
+  modY = y + 86/4;
+  diamond(modX, modY);
+
+  //top right
+  modX = x + 50/4*3;
+  modY = y + 86/4;
+  diamond(modX, modY);
+
+  //bottom left
+  modX = x - 50/4*3;
+  modY = y + 86*1.5 - 86/4;
+  diamond(modX, modY);
+
+  //bottom right
+  modX = x + 50/4*3;
+  modY = y + 86*1.5 - 86/4;
+  diamond(modX, modY);
+
+  //bottom
+  modX = x;
+  modY = y+86*1.5;
+  diamond(modX, modY);
+
+
+
+  function diamond(x, y) {
+    ctx.moveTo(x+100, y+0);
+    ctx.lineTo(x+87.5, y+86/4);
+    ctx.lineTo(x+100, y+86/2);
+    ctx.lineTo(x+112.5, y+86/4);
+    ctx.lineTo(x+100, y+0);
+  }
+}
+
+shapes.leftLeaningDiamonds = function (x, y) {
+  //top left
+  modX = x;
+  modY = y;
+  diamond(modX, modY);
+
+  //top
+  modX = x + 50/4*3;
+  modY = y - 86/4;
+  diamond(modX, modY);
+
+  //bottom left
+  modX = x;
+  modY = y + 86/2;
+  diamond(modX, modY);
+
+
+  //bottom
+  modX = x + 75;
+  modY = y+86;
+  diamond(modX, modY);  
+
+
+  //bottom right
+  modX = x + 112.5;
+  modY = y+86-(86/4);
+  diamond(modX, modY);  
+
+  //top right
+  modX = x + 112.5;
+  modY = y + (86/4);
+  diamond(modX, modY);  
+
+  function diamond(x, y) {
+    ctx.moveTo(x+25, y+86/2);
+    ctx.lineTo(x+50, y+86/2);
+    ctx.lineTo(x+62.5, y+86/4*3);
+    ctx.lineTo(x+37.5, y+86/4*3);
+    ctx.lineTo(x+25, y+86/2);
+  }
+}
+
+
+shapes.rightLeaningDiamonds = function (x, y) {
+  //top left
+  modX = x;
+  modY = y;
+  diamond(modX, modY);
+
+  //top
+  modX = x + 75;
+  modY = y - 86/2;
+  diamond(modX, modY);
+
+  //top right
+  modX = x + 112.5;
+  modY = y - 86/4;
+  diamond(modX, modY);
+
+  //bottom left
+  modX = x;
+  modY = y + 86/2;
+  diamond(modX, modY);
+
+  //bottom
+  modX = x + 37.5;
+  modY = y + 86/4*3;
+  diamond(modX, modY);
+
+  //bottom right
+  modX = x + 112.5;
+  modY = y + 86/4;
+  diamond(modX, modY);
+
+  function diamond(x, y) {
+    ctx.moveTo(x+37.5, y+86/4*3);
+    ctx.lineTo(x+62.5, y+86/4*3);
+    ctx.lineTo(x+50, y+86);
+    ctx.lineTo(x+25, y+86);
+    ctx.lineTo(x+37.5, y+86/4*3);
+  }
+}
+
+
+shapes.outerHex = function (x, y) {
+  ctx.moveTo(x+50, y+0);
+  ctx.lineTo(x+0, y+86);
+  ctx.lineTo(x+50, y+86*2);
+  ctx.lineTo(x+150, y+86*2);
+  ctx.lineTo(x+200, y+86);
+  ctx.lineTo(x+150, y+0);
+  ctx.lineTo(x+50, y+0);
+}
+
+shapes.halfHexSpikeSolution = function (x, y) {
+  //top left
+  ctx.moveTo(x+50, y);
+  ctx.lineTo(x+62.5, y+86/4);
+
+  //left
+  ctx.moveTo(x, y+86);
+  ctx.lineTo(x+25, y+86);
+
+  //bottom left
+  ctx.moveTo(x+50, y+86*2);
+  ctx.lineTo(x+62.5, y+86*2-86/4);
+
+  //top right
+  ctx.moveTo(x+137.5, y+86/4);
+  ctx.lineTo(x+150, y);
+
+  //right
+  ctx.moveTo(x+175, y+86);
+  ctx.lineTo(x+200, y+86);
+
+  //bottom right
+  ctx.moveTo(x+137.5, y+86*2-86/4);
+  ctx.lineTo(x+150, y+86*2);
+
+}
+
+  //12.5, 21.5   -  horiz 25, 0  -> ideal definition
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 
@@ -14,44 +181,9 @@ tile(0,0);
 tile(150,86);
 ctx.stroke();
 
-  //12.5, 21.5   -  horiz 25, 0  -> ideal definition
-
-
-
-
-function horizontalBig(x,y) {
-  ctx.moveTo(x+50, y+0);
-  ctx.lineTo(x+150, y+0);
-}
-
-function leanLeftBig(x, y) {
-  ctx.moveTo(x-150, y+0);
-  ctx.lineTo(x-100, y+86);
-}
-
-function leanRightBig(x, y) {
-  ctx.moveTo(x+0, y+86);
-  ctx.lineTo(x+50, y+0);
-}
-
-
-function leanLeftMedium(x, y) {
-  ctx.moveTo(x+50, y+0);
-  ctx.lineTo(x+75, y+86/2);
-
-  x = x + 75;
-  y = y + 86*1.5;
-  ctx.moveTo(x+50, y+0);
-  ctx.lineTo(x+75, y+86/2);
-}
-
-
 function tile(x, y) {
-  var funcs = [horizontalBig, leanLeftBig, leanRightBig, leanLeftMedium]
-
-  for (func of funcs) {
-    console.log(func);
-    tileFunc(x, y, func);
+  for (funcName in shapes) {
+    tileFunc(x, y, shapes[funcName]);
   }
 }
 
@@ -59,51 +191,19 @@ function tile(x, y) {
 function tileFunc(baseOffsetX, baseOffsetY, func) {
   var offsetX = 300;
   var offsetY = 86*2;
+  repeat = 4;
 
-  for (var x = 0; x < 5; x++) {
-      for (var y = 0; y < 5; y++) {
+  if (baseOffsetX == 0) {
+    repeat = 5;
+  }
+
+  for (var x = 0; x < 4; x++) {
+      for (var y = 0; y < repeat; y++) {
           func(x * offsetX + baseOffsetX, y * offsetY + baseOffsetY);
      }
   }
 }
-
-function draw(x, y) {
-	outerHex(x,y);
-    diamonds(x,y);
-}
-
-function diamonds(x, y) {
-  ctx.beginPath();
-  ctx.moveTo(x+100, y+0);
-  ctx.lineTo(x+87.5, y+86/4);
-  ctx.lineTo(x+100, y+86/2);
-  ctx.lineTo(x+112.5, y+86/4);
-  ctx.lineTo(x+100, y+0);
-  
-  y = y+86*1.5;
-  ctx.moveTo(x+100, y+0);
-  ctx.lineTo(x+87.5, y+86/4);
-  ctx.lineTo(x+100, y+86/2);
-  ctx.lineTo(x+112.5, y+86/4);
-  ctx.lineTo(x+100, y+0);
-  ctx.stroke();
-}
-
-function outerHex(x, y) {
-  ctx.beginPath();
-  ctx.moveTo(x+50, y+0);
-  ctx.lineTo(x+0, y+86);
-  ctx.lineTo(x+50, y+86*2);
-  ctx.lineTo(x+150, y+86*2);
-  ctx.lineTo(x+200, y+86);
-  ctx.lineTo(x+150, y+0);
-  ctx.lineTo(x+50, y+0);
-  ctx.stroke();
-}
 </script>
-
-<p><strong>Note:</strong> The canvas tag is not supported in Internet 
-Explorer 8 and earlier versions.</p>
 
 </body>
 </html>
