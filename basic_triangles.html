@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="900" height="700" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+var width = 900;
+var height = 700;
+var scale = 1;
+var movementX = 25;
+var movementY = 43;
+var repeatX = width / movementX;
+var repeatY = height / movementY;
+
+ctx.beginPath();
+triangles();
+ctx.stroke();
+
+
+function triangles() {
+    for(x = 0; x < repeatX; x++) {
+      for (y = 0; y < repeatY; y++) {
+        reverse = x % 2 ^ y % 2;
+        basicLine(x, y, reverse);   
+      }
+    }
+}
+
+function basicLine(indexX, indexY, reverse) {
+  var offsetX = indexX * movementX * scale;
+  var offsetY = indexY * movementY * scale;
+
+  var startX = offsetX * scale;
+  var stopX = (offsetX + movementX) * scale
+
+  var startY = offsetY * scale;
+  var stopY = (offsetY + movementY) * scale;
+
+  if(reverse) {
+    var tmp = stopX;
+    stopX = startX;
+    startX = tmp;
+  }
+
+  ctx.moveTo(startX, startY);
+  ctx.lineTo(stopX, stopY);
+  ctx.lineTo(startX, stopY);
+
+}
+
+</script>
+
+</body>
+</html>
